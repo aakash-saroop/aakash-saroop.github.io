@@ -143,26 +143,13 @@ h1, h2, h3, h4{
 
   .qr_img{
     display: flex;
-    flex: 1 1 50%;
-    margin: 5% 5% 5% 5%;
-    max-width: 200px;
-    object-fit:contain;
+    flex: 1 1 100%;
+    max-width: 20%;
     transition: margin .4s;  
     align-self: center;    
 }
 
 @media only screen and (max-width: 1026px) {
-  .qr_img{
-    display: flex;
-    flex: 1 1 50%;
-    max-width: 200px;
-    object-fit:contain;
-    transition: margin .4s;  
-    align-self: center; 
-  }
-}
-
-  @media only screen and (max-width: 1026px) {
     .homepage_img{
         display: none;
     }
