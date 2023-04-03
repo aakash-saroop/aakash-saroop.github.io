@@ -145,6 +145,7 @@ h1, h2, h3, h4{
     display: flex;
     flex: 1 1 100%;
     max-width: 20%;
+    height: auto;
     transition: margin .4s;  
     align-self: center;    
 }
