@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			padding: 8px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
+    <meta name="description" content="Ubicab: Book your ride at 0 commission on Telegram. 100% direct payment to drivers as per meter rate and a ₹ 20 surcharge to reach the pickup location.">
+    <meta name="keywords" content="Ubicab, No commission, Zero commission, 0 commission, Auto, Autorickshaw, Taxi, Cab, Mumbai, Fixed rate, Telegram">
+
+
+    <title>UbiCab</title>
+</head>
+<body>
+<div class="upper-section">
+    <a class="logo" href="https://telegram.me/ubi_cab_bot"><div class="blue-text">Ubi</div><div class="green-text">Cab</div></a> 
+</div>    
+<div class="white-section">
+    <img src="../static/images/auto.png"  class="qr_img">
+
+    <h1>Auto Fare Table</h1>
+    Minimum Fare for 1.5 km Rs. 23
+    <br>Subsequent KM Rs. 15.33 per KM (Rounded off to nearest Rupee)
+    <br>25% additional fare for journey from 12:00 midnight to 5:00am
+    <br>
+    <br>
+    <table>
+		<thead>
+			<tr>
+				<th>KM</th>
+				<th>Regular Fare</th>
+				<th>Midnight Fare</th>
+			</tr>
+		</thead>
+		<tbody id="table-body">
+		</tbody>
+        <table>
+            <thead>
+
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+
+    <script>
+        const farePerKM = 15.33; // fare per km rounded off to the nearest rupee
+        const baseFare = 23; // minimum fare for 1.5 km
+        const nightSurcharge = 0.25; // 25% additional fare for journey from 12:00 midnight to 5:00am
+    
+        const data = [];
+    
+        for (let i = 1.5; i <= 10; i += 0.1) { // loop through all possible distances up to 100 km
+          const km = parseFloat(i.toFixed(1)); // round off the distance to 1 decimal place
+          let reg_fare = Math.round(baseFare + (km - 1.5) * farePerKM); // calculate the regular fare
+          let mid_fare = Math.round(reg_fare * (1 + nightSurcharge)); // calculate the midnight fare
+    
+          // adjust the fares for distances less than 3 km
+          if (km < 3) {
+            reg_fare = Math.max(reg_fare, 22); // minimum fare for less than 3 km is Rs. 22
+            mid_fare = Math.max(mid_fare, 28); // minimum midnight fare for less than 3 km is Rs. 28
+          }
+    
+          data.push({ km, reg_fare, mid_fare }); // add the fare data for this distance to the array
+        }
+    
+        // Loop through the JSON data and add rows to the table
+        data.forEach(item => {
+            const tableRow = document.createElement('tr');
+            tableRow.innerHTML = `
+                <td>${item.km}</td>
+                <td>${item.reg_fare}</td>
+                <td>${item.mid_fare}</td>
+            `;
+            document.getElementById('table-body').appendChild(tableRow);
+        });
+    
+    </script>
+
+</div>
+</body>
+</html>
